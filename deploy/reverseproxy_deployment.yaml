@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverseproxy
+spec:
+  selector:
+    matchLabels: 
+      app: reverseproxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reverseproxy
+    spec:
+      containers:
+      - image: jcorrado76/simple-reverse-proxy:0.0.1
+        name: reverseproxy
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
