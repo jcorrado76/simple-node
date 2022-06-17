@@ -2,8 +2,7 @@ language: node_js
 node_js:
   - 13
 env:
-  - APP_VERSION=0.0.1
-  - DOCKER_REPO=simple-node
+  - APP_VERSION=0.0.1 DOCKER_REPO=simple-node
 
 services:
   - docker
