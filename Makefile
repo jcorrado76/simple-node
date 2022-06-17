@@ -18,3 +18,9 @@ push_simple_express:
 
 push_reverse_proxy:
 	docker push ${DOCKER_USERNAME}/${FULL_REVERSE_PROXY_SPEC}
+
+test_app_directly:
+	curl http://my-app-2-svc:8080/health
+
+test_nginx_proxy:
+	curl http://reverseproxy-svc:8080/api/health
