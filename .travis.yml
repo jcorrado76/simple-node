@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - 13
+env:
+  - APP_VERSION=0.0.1
+  - DOCKER_REPO=simple-node
 
 services:
   - docker
@@ -15,10 +18,12 @@ before_script:
 
 script:
   - docker --version # print the version for logging
-  - docker build -t simple-node .
-  - docker tag simple-node jcorrado76/simple-node:0.0.1
+  - docker build -t $DOCKER_REPO .
+  - docker tag $DOCKER_REPO $DOCKER_USERNAME/$DOCKER_REPO:$APP_VERSION
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push jcorrado76/simple-node:0.0.1
+  - echo $DOCKER_USERNAME
+  - echo $DOCKER_REPO
+  - docker push $DOCKER_USERNAME/$DOCKER_REPO:$APP_VERSION
