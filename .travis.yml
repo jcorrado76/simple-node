@@ -15,10 +15,10 @@ before_script:
 
 script:
   - docker --version # print the version for logging
-  - docker build -t simple-express .
-  - docker tag simple-express YOUR_DOCKER_HUB/simple-express:latest
+  - make build_simple_express
+  - make build_reverse_proxy
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push YOUR_DOCKER_HUB/simple-express
-
+  - echo "$DOCKER_PERSONAL_ACCESS_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - make push_simple_express
+  - make push_reverse_proxy 
